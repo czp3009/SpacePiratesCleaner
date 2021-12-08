@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<PluginManifest>
+    <Name>SpacePiratesCleaner</Name>
+    <Guid>39072961-7724-442e-baf7-a1ab9e32be70</Guid>
+    <Repository>https://github.com/czp3009/SpacePiratesCleaner</Repository>
+    <Version>v0.0.0.1</Version>
+</PluginManifest>

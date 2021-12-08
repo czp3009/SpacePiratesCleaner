@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{39072961-7724-442E-BAF7-A1AB9E32BE70}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>SpacePiratesCleaner</RootNamespace>
+        <AssemblyName>SpacePiratesCleaner</AssemblyName>
+        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="System"/>
+        <Reference Include="System.Core"/>
+        <Reference Include="System.Data"/>
+        <Reference Include="System.Xml"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="Sandbox.Game">
+            <HintPath>$(SolutionDir)\GameBinaries\Sandbox.Game.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="Torch">
+            <HintPath>$(SolutionDir)\TorchBinaries\Torch.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="Torch.API">
+            <HintPath>$(SolutionDir)\TorchBinaries\Torch.API.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="Torch.Server">
+            <HintPath>$(SolutionDir)\TorchBinaries\Torch.Server.exe</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="NLog">
+            <HintPath>$(SolutionDir)\TorchBinaries\NLog.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="SpacePiratesCleanerPlugin.cs"/>
+        <Compile Include="Properties\AssemblyInfo.cs"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="manifest.xml" CopyToOutputDirectory="PreserveNewest"/>
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
+    <Target Name="Zip" BeforeTargets="AfterBuild" Condition=" '$(Configuration)' == 'Release' ">
+        <MakeDir Directories="$(MSBuildProjectDirectory)\zip"/>
+        <ZipDirectory SourceDirectory="$(OutputPath)" DestinationFile="$(MSBuildProjectDirectory)\zip\$(MSBuildProjectName).zip" Overwrite="true"/>
+    </Target>
+</Project>
